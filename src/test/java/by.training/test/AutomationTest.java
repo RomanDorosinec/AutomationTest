@@ -4,6 +4,7 @@ import by.training.driver.DriverSingleton;
 import by.training.step.GmailPageSteps;
 import by.training.step.MainPageSteps;
 import by.training.step.SignInPageSteps;
+import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -25,17 +26,20 @@ public class AutomationTest {
     }
 
     @Test
-    public void testClick() throws InterruptedException {
+    public void testClick() {
         mainPageSteps.openMail();
         signInPageSteps.setUserName(USER_LOGIN);
         signInPageSteps.setUsersPassword(USER_PASSWORD);
         gmailPageSteps.writeEmailAndSend(USER_LOGIN, TEXT_EMAIL);
         gmailPageSteps.openInbox();
-        Thread.sleep(1000);
+        Assert.assertEquals(gmailPageSteps.getSendersEmail(), USER_LOGIN);
+        gmailPageSteps.openEmail();
+        Assert.assertEquals(gmailPageSteps.getEmailTextContent(), TEXT_EMAIL);
     }
 
     @AfterClass
     public void driverRelease() {
+        gmailPageSteps.deleteEmail();
         DriverSingleton.closeDriver();
     }
 }

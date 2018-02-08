@@ -21,4 +21,20 @@ public class GmailPageSteps {
     public void openInbox() {
         gmailPage.clickInbox();
     }
+
+    public String getSendersEmail() {
+        return gmailPage.getSendersMail();
+    }
+
+    public void openEmail() {
+        gmailPage.openNewEmail();
+    }
+
+    public String getEmailTextContent() {
+        return gmailPage.getTextContent();
+    }
+
+    public void deleteEmail() {
+        gmailPage.deleteNewEmail();
+    }
 }
